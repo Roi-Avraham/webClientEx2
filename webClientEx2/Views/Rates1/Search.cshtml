@@ -1,0 +1,81 @@
+﻿@model IEnumerable<webClientEx2.Models.Rate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section head{
+    <style type="text/css">
+         body {
+             background: rgb(2, 128, 144);
+             background: linear-gradient(75deg, #04adc4 35%, #027786 35%, #01424b 75%);
+        }
+    </style>
+}
+<h1>App rating</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Search">
+    <input name="query" />
+    <input type = "submit" value = "Search" />
+</form>
+@{
+    double avg = 0;
+    double sum = 0;
+    int count = 0;
+    foreach (var rate in Model)
+    {
+        count++;
+        sum += rate.RatingNum;
+    }
+    if (count != 0)
+    {
+        avg = sum / count;
+         <center><h1>the avg is: @avg</h1></center>
+    }
+   
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RatingNum)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatingNum)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<a asp-action="Search">see all the rates</a>

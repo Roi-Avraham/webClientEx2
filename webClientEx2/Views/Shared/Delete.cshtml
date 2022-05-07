@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@Model Rate
+<ul>
+    <li>Id:@Model.Id</li>
+ <li>Rate Number:@Model.RatingNum</li> 
+  <li>Text:@Model.Text</li> 
+   <li>Name:@Model.Name</li> 
+    <li>Date:@Model.Date</li> 
+</ul>
+<form asp-action ="Delete">
+    <div>
+        <lable>Are you sure you want to delete?</lable>
+        <input type ="submit" value = "Delete"/>
+    </div>
+
+</form>

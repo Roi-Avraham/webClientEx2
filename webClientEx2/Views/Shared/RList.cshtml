@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    double avg = 0;
+    double sum = 0;
+    int count = 0;
+    foreach (var rate in Model)
+    {
+        count++;
+        sum += rate.RatingNum;
+    }
+    if (count != 0)
+    {
+        avg = sum / count;
+         <center><h1>the avg is: @avg</h1></center>
+    }
+   
+}
+<a  asp-action="CreateRate">Create new rate</a>
+@model List<Rate>
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>RatingNum</th>
+                    <th>Text</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rate in Model)
+                {
+                    <tr>
+                    <td>@rate.Id</td>
+                    <td>@rate.RatingNum</td>
+                    <td>@rate.Text</td>
+                    <td>@rate.Name</td>
+                    <td>@rate.Date</td>
+                    <td> <a  asp-action="Details" asp-route-id="@rate.Id">Detailes</a></td>
+                    <td> <a  asp-action="Edit" asp-route-id="@rate.Id">Edit</a></td>
+                     <td> <a  asp-action="Delete" asp-route-id="@rate.Id">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>

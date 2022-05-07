@@ -1,0 +1,51 @@
+﻿@model webClientEx2.Models.Rate
+
+@{
+    ViewData["Title"] = "Create";
+}
+@section head{
+    <style type="text/css">
+         body {
+            background: rgb(2, 128, 144);
+             background: linear-gradient(75deg, #04adc4 35%, #027786 35%, #01424b 75%);
+        }
+    </style>
+}
+
+<h1> <span style="color: white" >Create</span></h1>
+
+<h4 style="color: white">Rate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label style="color: white" asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label style="color: white" asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label style="color: white" asp-for="RatingNum" class="control-label"></label>
+                <input asp-for="RatingNum" class="form-control" />
+                <span asp-validation-for="RatingNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Search">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
