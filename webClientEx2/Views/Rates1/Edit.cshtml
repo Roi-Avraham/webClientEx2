@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 @section head{
-    <style type="text/css">
+    <style type="text/css"  style="color:white">
          body {
             background: rgb(2, 128, 144);
              background: linear-gradient(75deg, #04adc4 35%, #027786 35%, #01424b 75%);
@@ -12,11 +12,11 @@
     </style>
 }
 
-<h1>Edit</h1>
+<h1  style="color:white">Edit</h1>
 
-<h4>Rating</h4>
+<h4  style="color:white">Rating</h4>
 <hr />
-<div class="row">
+<div class="row"  style="color:white">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -44,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Search">Back to List</a>
+    <a asp-action="Search"  style="color:white">Back to List</a>
 </div>
 
 @section Scripts {

@@ -11,10 +11,10 @@
         }
     </style>
 }
-<h1>App rating</h1>
+<h1  style="color:white">App rating</h1>
 
 <p>
-    <a asp-action="Create">Create New rating</a>
+    <a asp-action="Create"  style="color:white">Create New rating</a>
 </p>
 <form asp-action="Search">
     <input name="query" />
@@ -33,12 +33,12 @@
     {
         avg = sum / count;
         avg = (float)System.Math.Round(avg, 2);
-        <center><h1>The avg is: @avg</h1></center>
+        <center><h1  style="color:white">The avg is: @avg</h1></center>
     }
    
 }
 <table class="table">
-    <thead>
+    <thead  style="color:white">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Text)
@@ -57,7 +57,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr  style="color:white">
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
             </td>
@@ -71,12 +71,12 @@
                 @Html.DisplayFor(modelItem => item.RatingNum)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id"  style="color:white">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id"  style="color:white">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id"  style="color:white">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-<a asp-action="Search">see all the rates</a>
+<a asp-action="Search"  style="color:white">See all the rates</a>
