@@ -3,14 +3,13 @@ namespace webClientEx2.Services
 {
     public interface IRateService
     {
-        public List<Rate> GetAll();
-        
-        public Rate Get(int id);
+        public Task<List<Rate>> GetAll();
+        public Task<Rate> Get(int id);
+        public Task Edit(int id, string name, string text, int number);
+        public Task<Rate> Create(string text, string name, int number);
+        public Task Delete(int id);
+        public Task<ICollection<Rate>> Search(string query);
 
-        public void Edit(int id, string name, string text, int number);
-
-        public void Delete(int id);
-        public void Create(string text, string name, int number);
 
     }
 }

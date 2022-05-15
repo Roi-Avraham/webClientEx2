@@ -8,54 +8,40 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using webClientEx2.Data;
 using webClientEx2.Models;
+using webClientEx2.Services;
 
 namespace webClientEx2.Controllers
 {
     public class Rates1Controller : Controller
     {
-        private readonly webClientEx2Context _context;
+        private IRateService service;
 
-        public Rates1Controller(webClientEx2Context context)
+        public Rates1Controller(IRateService _service)
         {
-            _context = context;
+            service = _service;
         }
 
         // GET: Rates1
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rate.ToListAsync());
+            return View(await service.GetAll());
         }
 
         public async Task<IActionResult> Search()
         {
-            return View(await _context.Rate.ToListAsync());
+            return View(await service.GetAll());
         }
 
         [HttpPost]
         public async Task<IActionResult> Search(string query)
         {
-            var q = from   rate in _context.Rate
-                    where  rate.Text.Contains(query) || rate.Name.Contains(query)    
-                    select rate;
-            return View(await q.ToListAsync());
+            return View(await service.Search(query));
         }
 
         // GET: Rates1/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rate = await _context.Rate
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (rate == null)
-            {
-                return NotFound();
-            }
-
-            return View(rate);
+            return View(await service.Get(id));
         }
 
         // GET: Rates1/Create
@@ -71,30 +57,14 @@ namespace webClientEx2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Text,Name,Id,Date,RatingNum")] Rate rate)
         {
-            rate.Date = DateTime.Now;   
-            if (ModelState.IsValid)
-            {
-                _context.Add(rate);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Search));
-            }
-            return View(rate);
+            await service.Create(rate.Text, rate.Name, rate.RatingNum);
+            return RedirectToAction("Search");
         }
 
         // GET: Rates1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rate = await _context.Rate.FindAsync(id);
-            if (rate == null)
-            {
-                return NotFound();
-            }
-            return View(rate);
+            return View(await service.Get(id));
         }
 
         // POST: Rates1/Edit/5
@@ -104,51 +74,17 @@ namespace webClientEx2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Text,Name,Id,Date,RatingNum")] Rate rate)
         {
-            rate.Date = DateTime.Now;
-            if (id != rate.Id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(rate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RateExists(rate.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Search));
-            }
-            return View(rate);
+            await service.Edit(id, rate.Text, rate.Name, rate.RatingNum);
+
+            return RedirectToAction(nameof(Search));
+
         }
 
         // GET: Rates1/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rate = await _context.Rate
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (rate == null)
-            {
-                return NotFound();
-            }
-
-            return View(rate);
+            return View(await service.Get(id));
         }
 
         // POST: Rates1/Delete/5
@@ -156,15 +92,8 @@ namespace webClientEx2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rate = await _context.Rate.FindAsync(id);
-            _context.Rate.Remove(rate);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Search));
-        }
-
-        private bool RateExists(int id)
-        {
-            return _context.Rate.Any(e => e.Id == id);
+            await service.Delete(id);
+            return RedirectToAction("Search");
         }
     }
 }

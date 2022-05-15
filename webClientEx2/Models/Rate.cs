@@ -13,5 +13,16 @@ namespace webClientEx2.Models
         [Required]
         [Range (1,5)]
         public int RatingNum { get; set; }
+        public Rate()
+        {
+
+        }
+        public Rate (string text,string name, DateTime date, int ratingNum)
+        {
+            Text = text;
+            Name = name;  
+            Date = date;    
+            RatingNum = ratingNum;
+        }
     }
 }

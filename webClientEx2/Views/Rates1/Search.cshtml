@@ -14,15 +14,15 @@
 <h1>App rating</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New rating</a>
 </p>
 <form asp-action="Search">
     <input name="query" />
     <input type = "submit" value = "Search" />
 </form>
 @{
-    double avg = 0;
-    double sum = 0;
+    float avg = 0;
+    float sum = 0;
     int count = 0;
     foreach (var rate in Model)
     {
@@ -32,7 +32,8 @@
     if (count != 0)
     {
         avg = sum / count;
-         <center><h1>the avg is: @avg</h1></center>
+        avg = (float)System.Math.Round(avg, 2);
+        <center><h1>The avg is: @avg</h1></center>
     }
    
 }

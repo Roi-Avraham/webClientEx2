@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using webClientEx2.Data;
+using webClientEx2.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<webClientEx2Context>(options =>
@@ -8,6 +10,7 @@ builder.Services.AddDbContext<webClientEx2Context>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRateService, RateService>();
 
 var app = builder.Build();
 
